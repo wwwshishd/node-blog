@@ -18,12 +18,8 @@ exports.start = function(route, handle) {
 		// request url
 		var pathname = url.parse(request.url).pathname;
 		console.log("require for" + pathname);
-		var content = route(handle, pathname);
-
-		// response to browser
-		response.writeHead(200, {'Content-Type': 'text/plain'});
-		response.write(content);
-		response.end();
+		// route and response
+		route(handle, pathname, response);
 	});
 	server.listen(8888);
 	console.log('server has started on 8888 port.');

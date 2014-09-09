@@ -1,10 +1,12 @@
 
-exports.route = function(handle, pathname) {
+exports.route = function(handle, pathname, response) {
 	if (typeof handle[pathname] === 'function') {
-		return handle[pathname]();
+		handle[pathname](response);
 	} else {
 		console.log('No such handler of ' + pathname);
-		return '404 not found.';
+		response.writeHead(404, {'Content-Type': 'text/plain'});
+		response.write('404 not found.');
+		response.end();
 	}
 }
 
