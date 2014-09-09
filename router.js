@@ -1,7 +1,7 @@
 
-exports.route = function(handle, pathname, response) {
+exports.route = function(handle, pathname, response, postData) {
 	if (typeof handle[pathname] === 'function') {
-		handle[pathname](response);
+		handle[pathname](response, postData);
 	} else {
 		console.log('No such handler of ' + pathname);
 		response.writeHead(404, {'Content-Type': 'text/plain'});

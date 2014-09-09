@@ -17,9 +17,20 @@ exports.start = function(route, handle) {
 	server.on('request', function(request, response) {
 		// request url
 		var pathname = url.parse(request.url).pathname;
+		var postData = '';
+
+		request.senEncoding = 'utf-8';
 		console.log("require for" + pathname);
-		// route and response
-		route(handle, pathname, response);
+
+		request.addListener('data', function(postDataChunk) {
+			postData += postDataChunk;
+			console.log("request post data chunk: " + postDataChunk + "..");
+		});
+		request.addListener('end', function() {
+			route(handle, pathname, response, postData);
+		});
+
+
 	});
 	server.listen(8888);
 	console.log('server has started on 8888 port.');
