@@ -1,5 +1,4 @@
 var querystring = require('querystring');
-//mnll
 
 exports.start = function(response, postData) {
 	var body = '<html>'+
